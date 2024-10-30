@@ -1,6 +1,0 @@
-@ShipFast.Authentication_HostAddress = http://localhost:5265
-
-GET {{ShipFast.Authentication_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
