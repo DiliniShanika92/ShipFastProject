@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipFast.Authentication", "ShipFast.Authentication\ShipFast.Authentication.csproj", "{B0A1397E-3AF0-4170-94F9-B4913E637AF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipFast.DataLoader", "ShipFast.DataLoader\ShipFast.DataLoader.csproj", "{AD8F68E0-3EAD-4759-A009-B9CF8045329A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipFast.Delivery", "ShipFast.Delivery\ShipFast.Delivery.csproj", "{82CA6121-1E16-4944-8DC9-A8AE59B78AC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShipFast.Order", "ShipFast.Order\ShipFast.Order.csproj", "{CC970686-12F3-4930-A10E-F6261828A83B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0A1397E-3AF0-4170-94F9-B4913E637AF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0A1397E-3AF0-4170-94F9-B4913E637AF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0A1397E-3AF0-4170-94F9-B4913E637AF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0A1397E-3AF0-4170-94F9-B4913E637AF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD8F68E0-3EAD-4759-A009-B9CF8045329A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD8F68E0-3EAD-4759-A009-B9CF8045329A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD8F68E0-3EAD-4759-A009-B9CF8045329A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD8F68E0-3EAD-4759-A009-B9CF8045329A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82CA6121-1E16-4944-8DC9-A8AE59B78AC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82CA6121-1E16-4944-8DC9-A8AE59B78AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82CA6121-1E16-4944-8DC9-A8AE59B78AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82CA6121-1E16-4944-8DC9-A8AE59B78AC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC970686-12F3-4930-A10E-F6261828A83B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC970686-12F3-4930-A10E-F6261828A83B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC970686-12F3-4930-A10E-F6261828A83B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC970686-12F3-4930-A10E-F6261828A83B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

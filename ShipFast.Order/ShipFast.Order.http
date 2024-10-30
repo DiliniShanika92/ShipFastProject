@@ -1,0 +1,6 @@
+@ShipFast.Order_HostAddress = http://localhost:5283
+
+GET {{ShipFast.Order_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
