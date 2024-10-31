@@ -1,8 +1,6 @@
-//using DotnetRDS.Data;
 using Microsoft.EntityFrameworkCore;
 using ShipFast.Authentication.DataAccess;
 using ShipFast.Authentication.DataAccess.Models;
-using System.Reflection.Metadata;
 
 var builder = WebApplication.CreateBuilder(args);
 
