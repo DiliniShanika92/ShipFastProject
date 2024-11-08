@@ -1,9 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using ShipFast.Delivery.DataAccess;
-using ShipFast.Delivery.DataAccess.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure authentication
 ConfigureServices(
     builder.Services,
     builder.Configuration
@@ -11,28 +15,45 @@ ConfigureServices(
 
 var app = builder.Build();
 
-app.MapGet("/deliveries", async(DeliveryDbContext deliveryDbContext) 
-    => await deliveryDbContext.Deliveries.ToListAsync())
-    .Produces<List<Deliveryy>>(StatusCodes.Status201Created);
+app.UseAuthentication();
+app.UseAuthorization();
 
-app.MapGet("/deliveries/{id:int}", async (DeliveryDbContext deliveryDbContext, int id)
-    => await deliveryDbContext.Deliveries.FindAsync(id))
-    .Produces<Deliveryy>(StatusCodes.Status201Created);
-
-app.MapPost("/deliveries", async (DeliveryDbContext deliveryDbContext, Deliveryy delivery) =>
+// GET delivery status by tracking code
+app.MapGet("/deliveries/status/{trackingCode}", [Authorize] async (DeliveryDbContext deliveryDbContext, string trackingCode) =>
 {
-    await deliveryDbContext.Deliveries.AddAsync(delivery);
+    var delivery = await deliveryDbContext.Deliveries.FirstOrDefaultAsync(d => d.TrackingCode == trackingCode);
+    return delivery != null ? Results.Ok(delivery.Status) : Results.NotFound("Delivery not found.");
+}).Produces<bool>(StatusCodes.Status200OK);
+
+// POST cancel delivery
+app.MapPost("/deliveries/cancel", [Authorize] async (DeliveryDbContext deliveryDbContext, int deliveryId) =>
+{
+    var delivery = await deliveryDbContext.Deliveries.FindAsync(deliveryId);
+    if (delivery == null) return Results.NotFound("Delivery not found.");
+
+    delivery.Status = false; // Assuming false indicates canceled
     await deliveryDbContext.SaveChangesAsync();
-    return Results.Created($"/deliveries/{delivery.Id}", delivery);
-}).Produces(StatusCodes.Status201Created);
+    return Results.Ok("Delivery canceled successfully.");
+}).Produces(StatusCodes.Status200OK);
 
 app.Run();
 
 void ConfigureServices(IServiceCollection services, ConfigurationManager configurationManager)
 {
-    services.AddDbContext<DeliveryDbContext>(
-        opts =>
+    services.AddDbContext<DeliveryDbContext>(opts =>
+        opts.UseNpgsql(configurationManager.GetConnectionString("DeliveryDb")),
+        ServiceLifetime.Transient);
+
+    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
         {
-            opts.UseNpgsql(configurationManager.GetConnectionString("DeliveryDb"));
-        }, ServiceLifetime.Transient);
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("YourSecretKeyHere")),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+        });
+    services.AddAuthorization();
 }
