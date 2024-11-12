@@ -19,7 +19,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // POST Add an order for delivery
-app.MapPost("/orders", [Authorize] async (OrderDbContext orderDbContext, Orderr order) =>
+app.MapPost("/orders", [AllowAnonymous] async (OrderDbContext orderDbContext, Orderr order) =>
 {
     await orderDbContext.Orders.AddAsync(order);
     await orderDbContext.SaveChangesAsync();
@@ -27,12 +27,12 @@ app.MapPost("/orders", [Authorize] async (OrderDbContext orderDbContext, Orderr 
 }).Produces(StatusCodes.Status201Created);
 
 // GET All Orders
-app.MapGet("/orders", [Authorize] async (OrderDbContext orderDbContext)
+app.MapGet("/orders", [AllowAnonymous] async (OrderDbContext orderDbContext)
     => await orderDbContext.Orders.ToListAsync())
     .Produces<List<Orderr>>(StatusCodes.Status200OK);
 
 // GET Order by OrderId
-app.MapGet("/orders/{orderId}", [Authorize] async (OrderDbContext orderDbContext, int orderId) =>
+app.MapGet("/orders/{orderId}", [AllowAnonymous] async (OrderDbContext orderDbContext, int orderId) =>
 {
     var order = await orderDbContext.Orders.FindAsync(orderId);
     return order != null ? Results.Ok(order) : Results.NotFound("Order not found.");

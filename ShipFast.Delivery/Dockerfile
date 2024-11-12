@@ -10,6 +10,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:6.0-focal
 WORKDIR /app
 COPY --from=build /app ./
 
-EXPOSE 3000
+EXPOSE 4000
 
 ENTRYPOINT ["dotnet", "ShipFast.Delivery.dll"]

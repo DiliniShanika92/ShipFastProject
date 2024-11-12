@@ -19,14 +19,14 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 // GET delivery status by tracking code
-app.MapGet("/deliveries/status/{trackingCode}", [Authorize] async (DeliveryDbContext deliveryDbContext, string trackingCode) =>
+app.MapGet("/deliveries/status/{trackingCode}", [AllowAnonymous] async (DeliveryDbContext deliveryDbContext, string trackingCode) =>
 {
     var delivery = await deliveryDbContext.Deliveries.FirstOrDefaultAsync(d => d.TrackingCode == trackingCode);
     return delivery != null ? Results.Ok(delivery.Status) : Results.NotFound("Delivery not found.");
 }).Produces<bool>(StatusCodes.Status200OK);
 
 // POST cancel delivery
-app.MapPost("/deliveries/cancel", [Authorize] async (DeliveryDbContext deliveryDbContext, int deliveryId) =>
+app.MapPost("/deliveries/cancel", [AllowAnonymous] async (DeliveryDbContext deliveryDbContext, int deliveryId) =>
 {
     var delivery = await deliveryDbContext.Deliveries.FindAsync(deliveryId);
     if (delivery == null) return Results.NotFound("Delivery not found.");
